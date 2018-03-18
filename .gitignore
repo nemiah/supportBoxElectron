@@ -1,0 +1,11 @@
+/supportBox-win32-ia32/
+/supportBox-linux-ia32/
+/supportBox-mas-x64/
+/supportBox-darwin-x64/
+/supportBox-win32-x64/
+/supportBox-linux-armv7l/
+/supportBox-linux-mips64el/
+/supportBox-linux-x64/
+/supportBox-linux-arm64/
+/nbproject/
+/node_modules/
