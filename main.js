@@ -1,6 +1,8 @@
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
+const Tray = electron.Tray
+const Menu = electron.Menu
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -12,9 +14,12 @@ const config = new Config()
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
+let appIcon = null
 function createWindow() {
-	let opts = {width: 300, height: 600, show: false, "node-integration": false};
+	let opts = {width: 300, height: 600, show: false, nodeIntegration: false, maximizable: false, icon: __dirname+"/iconTaskbar.png"};
+	if(process.platform === "win32")
+		opts.icon = __dirname+"/iconWindows.ico"
+	
 	Object.assign(opts, config.get('winBounds'))
 	
 	// Create the browser window.
@@ -25,9 +30,12 @@ function createWindow() {
 		protocol: 'file:',
 		slashes: true
 	}))*/
-	mainWindow.once('ready-to-show', mainWindow.show)
-	// Open the DevTools.
-	// mainWindow.webContents.openDevTools()
+	//mainWindow.once('ready-to-show', mainWindow.show)
+
+	mainWindow.on('minimize',function(event){
+		event.preventDefault();
+		mainWindow.hide();
+	});
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -37,9 +45,36 @@ function createWindow() {
 		mainWindow = null
 	})
 
-	mainWindow.on('close', () => {
+	mainWindow.on('close', function(event) {
 		config.set('winBounds', mainWindow.getBounds())
+		
+		if(!app.isQuiting){
+			event.preventDefault();
+			mainWindow.hide();
+		}
+
+		return false;
 	})
+	
+	appIcon = new Tray(__dirname+"/iconTray.png")
+	const contextMenu = Menu.buildFromTemplate([
+		{label: 'Anzeigen', click: function(){ mainWindow.show(); }},
+		//{label: 'Einstellungen'},
+		{label: "Beenden", click: function(){ 
+			app.isQuiting = true;
+			app.quit(); }}
+	])
+	appIcon.on("click", function(){
+		if(mainWindow.isVisible())
+			mainWindow.hide();
+		else
+			mainWindow.show();
+	});
+	// Make a change to the context menu
+	contextMenu.items[1].checked = false
+
+	// Call this again for Linux because we modified the context menu
+	appIcon.setContextMenu(contextMenu)
 }
 
 // This method will be called when Electron has finished

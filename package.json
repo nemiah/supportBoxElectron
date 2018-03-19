@@ -1,7 +1,7 @@
 {
   "name": "supportBox",
   "productName": "supportBox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "supportBox desktop application",
   "main": "main.js",
   "scripts": {
