@@ -25,7 +25,7 @@ function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow(opts);//{width: 300, height: 600})
 	// and load the index.html of the app.
-	mainWindow.loadURL("https://cloud9.furtmeier.it/ubiquitous/CustomerPage/?D=supportBox/SBElectron&cloud=Furtmeier");/*url.format({
+	mainWindow.loadURL("https://cloud.furtmeier.it/ubiquitous/CustomerPage/?D=supportBox/SBElectron&cloud=Furtmeier");/*url.format({
 		pathname: path.join(__dirname, 'index.html'),
 		protocol: 'file:',
 		slashes: true

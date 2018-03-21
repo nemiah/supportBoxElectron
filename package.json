@@ -4,6 +4,7 @@
   "version": "0.2.0",
   "description": "supportBox desktop application",
   "main": "main.js",
+  "repository": "https://github.com/nemiah/supportBoxElectron",
   "scripts": {
     "start": "electron ."
   },
