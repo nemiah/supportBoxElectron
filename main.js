@@ -5,11 +5,16 @@ const Tray = electron.Tray
 const Menu = electron.Menu
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const ipcMain = electron.ipcMain
 
 const path = require('path')
 const url = require('url')
 const Config = require('electron-config')
 const config = new Config()
+
+ipcMain.on('reload', (event, arg) => {  
+    reload();
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,11 +30,8 @@ function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow(opts);//{width: 300, height: 600})
 	// and load the index.html of the app.
-	mainWindow.loadURL("https://cloud.furtmeier.it/ubiquitous/CustomerPage/?D=supportBox/SBElectron&cloud=Furtmeier");/*url.format({
-		pathname: path.join(__dirname, 'index.html'),
-		protocol: 'file:',
-		slashes: true
-	}))*/
+	reload();
+	
 	//mainWindow.once('ready-to-show', mainWindow.show)
 
 	mainWindow.on('minimize',function(event){
@@ -99,5 +101,6 @@ app.on('activate', function () {
 	}
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+function reload(){
+	mainWindow.loadURL(config.get('server', 'https://cloud.furtmeier.it')+"/ubiquitous/CustomerPage/?D=supportBox/SBElectron&cloud="+config.get('cloud', 'https://cloud.furtmeier.it'));
+}

@@ -1,7 +1,7 @@
 {
   "name": "supportBox",
   "productName": "supportBox",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "supportBox desktop application",
   "main": "main.js",
   "repository": "https://github.com/nemiah/supportBoxElectron",
