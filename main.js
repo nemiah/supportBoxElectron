@@ -102,5 +102,5 @@ app.on('activate', function () {
 })
 
 function reload(){
-	mainWindow.loadURL(config.get('server', 'https://cloud.furtmeier.it')+"/ubiquitous/CustomerPage/?D=supportBox/SBElectron&cloud="+config.get('cloud', 'https://cloud.furtmeier.it'));
+	mainWindow.loadURL(config.get('server', 'https://hq.supportbox.io')+"/ubiquitous/CustomerPage/?D=supportBox/SBElectron&cloud="+config.get('cloud', 'https://cloud.furtmeier.it'));
 }
